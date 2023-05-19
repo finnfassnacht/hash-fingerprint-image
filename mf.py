@@ -44,11 +44,10 @@ class fingerprint:
             splithash.append(hashh[x-4:x])
         return splithash
 
-    def fingerprint(hashh):
+    def fingerprint(hashh, HandW):
         hashlist = (fingerprint.splithash(hashh))
         sums = fingerprint.converttonum(hashlist)
-
-        img = Image.new("RGB", (400, 400))
+        img = Image.new("RGB", (HandW, HandW))
         x = 0
         y = 0
         ni = 0
@@ -56,12 +55,12 @@ class fingerprint:
 
             for i in range(4):
                 arr = (sums[i+ni])
-                mas = arr[0]
+                mas = (arr[0] * (HandW / 100)) 
                 color = (arr[1]*12, arr[2]*12, arr[3]*12)
-                lay = Image.new("RGB", ((mas)*4, (mas)*4), color)
+                lay = Image.new("RGB", (round(mas), round(mas)), color)
                 img.paste(lay, (0+x, 0+y))
-                x += 100
+                x += int(HandW / 4)
             x = 0
             ni += 4
-            y += 100
+            y += int(HandW / 4)
         return img
